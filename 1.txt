@@ -1,0 +1,20 @@
+#include <stdio.h>
+#include <sys/ptrace.h>
+
+int main(void)
+{
+    printf("Ptrace\n");
+    int pid=3193;
+    long address=0xBCEE33EC;
+
+    long ret= ptrace(PTRACE_ATTACH,pid,NULL,NULL);
+    printf("PTRACE_ATTACH:%d\n",ret);
+
+    //read memory
+    ret= ptrace(PTRACE_PEEKDATA,pid,address,NULL);
+    printf("PTRACE_DETACH:%d\n",ret);
+
+    ret= ptrace(PTRACE_DETACH,pid,NULL,NULL);
+    printf("PTRACE_DETACH:%d\n",ret);
+    return 0;
+}

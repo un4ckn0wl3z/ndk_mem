@@ -1,0 +1,26 @@
+#include <stdio.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <stdint.h>
+int main(void)
+{
+    //ptrace
+    //proc
+    //process_vm
+
+    char * mem_path="/proc/30044/mem";
+    int fd= open(mem_path,O_RDWR);
+    uintptr_t address=0xBCF5D83C;
+
+    int res=0;
+    //read mem
+    lseek(fd,address,SEEK_SET);
+    read(fd,&res, sizeof(int ));
+
+    printf("%lX read int %d\n",address,res);
+
+    close(fd);
+    return 0;
+}
